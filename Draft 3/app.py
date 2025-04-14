@@ -14,6 +14,8 @@ from security_protocols.rbac.rbac import (
     create_user, create_resident, assign_access,
     delete_user, delete_resident
 )
+from security_protocols.encryption.encryption_handler import verify_password
+
 from security_protocols.database.db_handler import (
     get_resident_by_id, get_care_plans, get_vitals, get_medications, get_files,
     save_care_entry, save_medication, save_vitals
@@ -32,10 +34,14 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        user = get_user_by_email(request.form["user"])
-        if user:
+        email = request.form["user"]
+        password = request.form["password"]
+
+        user = get_user_by_email(email)
+        if user and verify_password(email, password):
             session["temp_user"] = user["user_id"]
             return redirect("/mfa")
+
     return render_template("login.html", users=users)
 
 
