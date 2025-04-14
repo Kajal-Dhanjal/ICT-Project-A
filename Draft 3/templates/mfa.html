@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MFA Verification</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Enter MFA Code</h2>
+  <form method="post">
+    <input type="text" name="code" placeholder="123456">
+    <button type="submit">Verify</button>
+  </form>
+</body>
+</html>

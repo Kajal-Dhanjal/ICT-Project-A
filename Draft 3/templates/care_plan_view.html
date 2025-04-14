@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resident Care Plans</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Resident Care Plans 
+      {% if role == 'nurse' %}
+        <span class="badge nurse">Nurse</span>
+      {% elif role == 'carer' %}
+        <span class="badge carer">Carer</span>
+      {% endif %}
+    </h2>
+
+    <div class="resident-header">
+      <h3>{{ resident.full_name }} <span class="room">(Room {{ resident.room }})</span></h3>
+      <p>Last updated: 
+        {% if care_plans %}
+          {{ care_plans[-1].timestamp.strftime('%d/%m/%Y %H:%M') }}
+        {% else %}
+          N/A
+        {% endif %}
+      </p>
+      <a href="/logout" class="logout">Logout</a>
+    </div>
+
+    <div class="flex-row">
+      <div class="card">
+        <h4>Vital Signs</h4>
+        {% if vitals %}
+          {% set v = vitals[-1] %}
+          <p>Blood Pressure: {{ v.bp }}</p>
+          <p>Temperature: {{ v.temp }}°C</p>
+          <p>Heart Rate: {{ v.hr }} bpm</p>
+        {% else %}
+          <p>No vitals recorded.</p>
+        {% endif %}
+      </div>
+
+      <div class="card">
+        <h4>Medication Schedule</h4>
+        {% if medications %}
+          {% for m in medications %}
+            <p><strong>{{ m.name }}</strong><br>
+              {{ m.dose }} • {{ m.time }} • {{ m.route }}
+              <span class="pill {% if loop.index0 % 2 == 0 %}blue{% else %}orange{% endif %}">
+                {% if loop.index0 % 2 == 0 %}Administered{% else %}Pending{% endif %}
+              </span>
+            </p>
+          {% endfor %}
+        {% else %}
+          <p>No medications logged.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <h4>Care Plan Timeline</h4>
+    {% if care_plans %}
+      <select onchange="showPlan(this.value)">
+        <option value="">Select Version</option>
+        {% for plan in care_plans %}
+          <option value="plan-{{ plan.id }}">{{ plan.timestamp.strftime('%d/%m/%Y %H:%M') }}</option>
+        {% endfor %}
+      </select>
+
+      {% for plan in care_plans %}
+        <div class="plan-version" id="plan-{{ plan.id }}" style="display:none;">
+          <p><strong>Assessment:</strong> {{ plan.assessment }}</p>
+          <p><strong>Diagnosis:</strong> {{ plan.diagnosis }}</p>
+          <p><strong>Goals:</strong> {{ plan.goals }}</p>
+          <p><strong>Interventions:</strong> {{ plan.interventions }}</p>
+          <p><strong>Evaluation:</strong> {{ plan.evaluation }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No care plans recorded.</p>
+    {% endif %}
+
+    <h4>Attachments</h4>
+    {% if files %}
+      <ul>
+        {% for f in files %}
+          <li><a href="{{ url_for('serve_file', filename=f.filename) }}" target="_blank">{{ f.filename }}</a> — {{ f.timestamp.strftime('%d/%m/%Y %H:%M') }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No attachments available.</p>
+    {% endif %}
+
+    {% if has_write_access %}
+    <h4>Update Care Plan</h4>
+    <form method="post" enctype="multipart/form-data">
+      <textarea name="assessment" placeholder="Assessment" required></textarea><br>
+      <textarea name="diagnosis" placeholder="Diagnosis" required></textarea><br>
+      <textarea name="goals" placeholder="Goals" required></textarea><br>
+      <textarea name="interventions" placeholder="Interventions" required></textarea><br>
+      <textarea name="evaluation" placeholder="Evaluation" required></textarea><br>
+
+      <h5>Vitals</h5>
+      <input type="text" name="bp" placeholder="Blood Pressure (e.g. 120/80)"><br>
+      <input type="text" name="temp" placeholder="Temperature (°C)"><br>
+      <input type="text" name="hr" placeholder="Heart Rate (bpm)"><br>
+
+      <h5>Medication</h5>
+      <input type="text" name="med_name" placeholder="Medication Name"><br>
+      <input type="text" name="dose" placeholder="Dose"><br>
+      <input type="text" name="time" placeholder="Time (e.g. 10AM)"><br>
+      <input type="text" name="route" placeholder="Route (e.g. Oral)"><br>
+
+      <input type="file" name="file"><br>
+      <button type="submit">Save Entry</button>
+    </form>
+    {% endif %}
+  </div>
+
+  <script>
+    function showPlan(id) {
+      document.querySelectorAll(".plan-version").forEach(div => div.style.display = "none");
+      if (id) document.getElementById(id).style.display = "block";
+    }
+  </script>
+</body>
+</html>

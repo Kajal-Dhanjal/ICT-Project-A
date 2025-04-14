@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome, {{ user.full_name }} ({{ role|capitalize }})</h2>
+    <a href="/logout" class="logout">Logout</a>
+
+    <hr>
+    <h3>Accessible Residents</h3>
+    {% for r in residents %}
+      <p>{{ r.full_name }} (Room {{ r.room }})
+        {% if role != 'admin' %}
+          <a href="/care_plan/{{ r.resident_id }}">View Care Plan</a>
+        {% endif %}
+      </p>
+    {% endfor %}
+
+    {% if role == 'admin' %}
+    <hr>
+    <h3>Manage Employees</h3>
+    <form method="post" action="/create_user">
+      <input type="text" name="full_name" placeholder="Full Name" required>
+      <input type="text" name="email" placeholder="Email" required>
+      <select name="role">
+        <option value="nurse">Nurse</option>
+        <option value="carer">Carer</option>
+      </select>
+      <button type="submit">Create User</button>
+    </form>
+
+    <form method="post" action="/create_resident">
+      <input type="text" name="resident_name" placeholder="Resident Name" required>
+      <input type="text" name="room_number" placeholder="Room Number" required>
+      <button type="submit">Add Resident</button>
+    </form>
+
+    <form method="post" action="/assign_access">
+      <input type="text" name="staff_email" placeholder="Staff Email" required>
+      <input type="text" name="resident_name" placeholder="Resident Name" required>
+      <select name="access_level">
+        <option value="read">Read Only</option>
+        <option value="write">Write</option>
+      </select>
+      <button type="submit">Assign Access</button>
+    </form>
+
+    <hr>
+    <h4>All Employees</h4>
+    {% for emp in all_users if emp.role != 'admin' %}
+      <p>
+        {{ emp.full_name }} ({{ emp.role }}) —
+        Access:
+        {% set emp_assignments = assignments | selectattr("staff_id", "equalto", emp.user_id) | list %}
+        {% for a in emp_assignments %}
+          {% set resident = (residents | selectattr('resident_id', 'equalto', a.resident_id) | list).0 %}
+          {{ resident.full_name }} [{{ a.access }}]{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        <form method="post" action="/delete_user" style="display:inline;">
+          <input type="hidden" name="user_id" value="{{ emp.user_id }}">
+          <button type="submit">🗑</button>
+        </form>
+      </p>
+    {% endfor %}
+
+    <h4>All Residents</h4>
+    {% for res in residents %}
+      <p>
+        {{ res.full_name }} (Room {{ res.room }}) —
+        Cared by:
+        {% set caretakers = assignments | selectattr("resident_id", "equalto", res.resident_id) | list %}
+        {% for a in caretakers %}
+          {% set staff = (all_users | selectattr('user_id', 'equalto', a.staff_id) | list).0 %}
+          {{ staff.full_name }} [{{ a.access }}]{% if not loop.last %}, {% endif %}
+        {% endfor %}
+        <form method="post" action="/delete_resident" style="display:inline;">
+          <input type="hidden" name="resident_id" value="{{ res.resident_id }}">
+          <button type="submit">🗑</button>
+        </form>
+      </p>
+    {% endfor %}
+
+    <h4>Activity Logs</h4>
+    {% if logs %}
+      <ul>
+        {% for log in logs %}
+          <li>{{ log }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No recent activity.</p>
+    {% endif %}
+    {% endif %}
+  </div>
+</body>
+</html>

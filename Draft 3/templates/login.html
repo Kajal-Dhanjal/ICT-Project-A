@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Login</h2>
+  <form method="post">
+    <label>Select user:</label>
+    <select name="user">
+      {% for u in users %}
+        <option value="{{ u.email }}">{{ u.full_name }} ({{ u.email }})</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Login</button>
+  </form>
+</body>
+</html>
