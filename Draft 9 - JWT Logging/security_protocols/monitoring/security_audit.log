@@ -1,0 +1,83 @@
+2025-04-21 23:52:09,999 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-21 23:52:09,999 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-21 23:52:10,002 - INFO -  * Restarting with stat
+2025-04-21 23:52:12,469 - WARNING -  * Debugger is active!
+2025-04-21 23:52:12,490 - INFO -  * Debugger PIN: 120-206-497
+2025-04-21 23:54:05,073 - INFO - 127.0.0.1 - - [21/Apr/2025 23:54:05] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-21 23:54:05,187 - INFO - 127.0.0.1 - - [21/Apr/2025 23:54:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-21 23:54:10,895 - INFO - 127.0.0.1 - - [21/Apr/2025 23:54:10] "GET /login HTTP/1.1" 200 -
+2025-04-21 23:56:47,319 - INFO - HTTP Request: POST https://nlnqftrcipwrjeikexdp.supabase.co/auth/v1/token?grant_type=password "HTTP/2 200 OK"
+2025-04-21 23:56:48,141 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&email=eq.admin%40example.com "HTTP/2 200 OK"
+2025-04-21 23:56:48,189 - INFO - 127.0.0.1 - - [21/Apr/2025 23:56:48] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-21 23:56:48,266 - INFO - \U0001f511 JWT received from browser.
+2025-04-21 23:56:48,271 - INFO - \u2705 JWT decoded successfully: sub=fa35f560-1573-46ff-b5ba-af6faacdd58b
+2025-04-21 23:56:48,344 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-21 23:56:48,345 - INFO - \u2705 Auth success — g.user_id=fa35f560-1573-46ff-b5ba-af6faacdd58b, g.role=admin
+2025-04-21 23:56:48,347 - INFO - 127.0.0.1 - - [21/Apr/2025 23:56:48] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-04-21 23:56:48,419 - INFO - \U0001f511 JWT received from browser.
+2025-04-21 23:56:48,420 - INFO - \u2705 JWT decoded successfully: sub=fa35f560-1573-46ff-b5ba-af6faacdd58b
+2025-04-21 23:56:48,464 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-21 23:56:48,464 - INFO - \u2705 Auth success — g.user_id=fa35f560-1573-46ff-b5ba-af6faacdd58b, g.role=admin
+2025-04-21 23:56:48,508 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=%2A&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-21 23:56:48,545 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=%2A "HTTP/2 200 OK"
+2025-04-21 23:56:48,596 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/residents?select=%2A "HTTP/2 200 OK"
+2025-04-21 23:56:48,622 - INFO - 127.0.0.1 - - [21/Apr/2025 23:56:48] "GET /admin_dashboard HTTP/1.1" 200 -
+2025-04-21 23:58:30,267 - INFO - 127.0.0.1 - - [21/Apr/2025 23:58:30] "GET /login HTTP/1.1" 200 -
+2025-04-21 23:58:34,212 - INFO - HTTP Request: POST https://nlnqftrcipwrjeikexdp.supabase.co/auth/v1/token?grant_type=password "HTTP/2 200 OK"
+2025-04-21 23:58:35,838 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&email=eq.admin%40example.com "HTTP/2 200 OK"
+2025-04-21 23:58:35,841 - INFO - 127.0.0.1 - - [21/Apr/2025 23:58:35] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-21 23:58:35,917 - INFO - \U0001f511 JWT received from browser.
+2025-04-21 23:58:35,923 - INFO - \u2705 JWT decoded successfully: sub=fa35f560-1573-46ff-b5ba-af6faacdd58b
+2025-04-21 23:58:36,138 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-21 23:58:36,139 - INFO - \u2705 Auth success — g.user_id=fa35f560-1573-46ff-b5ba-af6faacdd58b, g.role=admin
+2025-04-21 23:58:36,140 - INFO - 127.0.0.1 - - [21/Apr/2025 23:58:36] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-04-21 23:58:36,192 - INFO - \U0001f511 JWT received from browser.
+2025-04-21 23:58:36,192 - INFO - \u2705 JWT decoded successfully: sub=fa35f560-1573-46ff-b5ba-af6faacdd58b
+2025-04-21 23:58:36,412 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-21 23:58:36,414 - INFO - \u2705 Auth success — g.user_id=fa35f560-1573-46ff-b5ba-af6faacdd58b, g.role=admin
+2025-04-21 23:58:37,024 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=%2A&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-21 23:58:37,632 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=%2A "HTTP/2 200 OK"
+2025-04-21 23:58:37,865 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/residents?select=%2A "HTTP/2 200 OK"
+2025-04-21 23:58:37,868 - INFO - 127.0.0.1 - - [21/Apr/2025 23:58:37] "GET /admin_dashboard HTTP/1.1" 200 -
+2025-04-21 23:59:43,004 - INFO -  * Detected change in 'C:\\Users\\singh\\OneDrive - Swinburne University\\BA-CYB\\2025-HS1-ICT30017-ICT Project A\\Draft\\Draft 9 - JWT Logging\\security_protocols\\jwt\\auth.py', reloading
+2025-04-21 23:59:43,332 - INFO -  * Restarting with stat
+2025-04-21 23:59:45,571 - WARNING -  * Debugger is active!
+2025-04-21 23:59:45,575 - INFO -  * Debugger PIN: 120-206-497
+2025-04-21 23:59:48,665 - INFO -  * Detected change in 'C:\\Users\\singh\\OneDrive - Swinburne University\\BA-CYB\\2025-HS1-ICT30017-ICT Project A\\Draft\\Draft 9 - JWT Logging\\security_protocols\\jwt\\auth.py', reloading
+2025-04-21 23:59:48,836 - INFO -  * Restarting with stat
+2025-04-21 23:59:50,309 - WARNING -  * Debugger is active!
+2025-04-21 23:59:50,311 - INFO -  * Debugger PIN: 120-206-497
+2025-04-21 23:59:51,364 - INFO -  * Detected change in 'C:\\Users\\singh\\OneDrive - Swinburne University\\BA-CYB\\2025-HS1-ICT30017-ICT Project A\\Draft\\Draft 9 - JWT Logging\\security_protocols\\jwt\\auth.py', reloading
+2025-04-21 23:59:51,504 - INFO -  * Restarting with stat
+2025-04-21 23:59:52,926 - WARNING -  * Debugger is active!
+2025-04-21 23:59:52,928 - INFO -  * Debugger PIN: 120-206-497
+2025-04-21 23:59:55,996 - INFO -  * Detected change in 'C:\\Users\\singh\\OneDrive - Swinburne University\\BA-CYB\\2025-HS1-ICT30017-ICT Project A\\Draft\\Draft 9 - JWT Logging\\security_protocols\\jwt\\auth.py', reloading
+2025-04-21 23:59:56,134 - INFO -  * Restarting with stat
+2025-04-21 23:59:57,500 - WARNING -  * Debugger is active!
+2025-04-21 23:59:57,504 - INFO -  * Debugger PIN: 120-206-497
+2025-04-22 00:00:01,574 - INFO -  * Detected change in 'C:\\Users\\singh\\OneDrive - Swinburne University\\BA-CYB\\2025-HS1-ICT30017-ICT Project A\\Draft\\Draft 9 - JWT Logging\\security_protocols\\jwt\\auth.py', reloading
+2025-04-22 00:00:01,704 - INFO -  * Restarting with stat
+2025-04-22 00:00:03,293 - WARNING -  * Debugger is active!
+2025-04-22 00:00:03,296 - INFO -  * Debugger PIN: 120-206-497
+2025-04-22 00:00:05,351 - INFO -  * Detected change in 'C:\\Users\\singh\\OneDrive - Swinburne University\\BA-CYB\\2025-HS1-ICT30017-ICT Project A\\Draft\\Draft 9 - JWT Logging\\security_protocols\\jwt\\auth.py', reloading
+2025-04-22 00:00:05,495 - INFO -  * Restarting with stat
+2025-04-22 00:00:07,152 - WARNING -  * Debugger is active!
+2025-04-22 00:00:07,154 - INFO -  * Debugger PIN: 120-206-497
+2025-04-22 00:00:09,345 - INFO - 127.0.0.1 - - [22/Apr/2025 00:00:09] "GET /login HTTP/1.1" 200 -
+2025-04-22 00:00:20,727 - INFO - HTTP Request: POST https://nlnqftrcipwrjeikexdp.supabase.co/auth/v1/token?grant_type=password "HTTP/2 200 OK"
+2025-04-22 00:00:21,747 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&email=eq.admin%40example.com "HTTP/2 200 OK"
+2025-04-22 00:00:21,759 - INFO - 127.0.0.1 - - [22/Apr/2025 00:00:21] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-22 00:00:21,821 - INFO - JWT received from browser.
+2025-04-22 00:00:21,822 - INFO - JWT decoded successfully: sub=fa35f560-1573-46ff-b5ba-af6faacdd58b
+2025-04-22 00:00:21,860 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-22 00:00:21,861 - INFO - Auth success — g.user_id=fa35f560-1573-46ff-b5ba-af6faacdd58b, g.role=admin
+2025-04-22 00:00:21,864 - INFO - 127.0.0.1 - - [22/Apr/2025 00:00:21] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-04-22 00:00:21,914 - INFO - JWT received from browser.
+2025-04-22 00:00:21,915 - INFO - JWT decoded successfully: sub=fa35f560-1573-46ff-b5ba-af6faacdd58b
+2025-04-22 00:00:21,954 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=id%2Crole&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-22 00:00:21,955 - INFO - Auth success — g.user_id=fa35f560-1573-46ff-b5ba-af6faacdd58b, g.role=admin
+2025-04-22 00:00:22,000 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=%2A&id=eq.fa35f560-1573-46ff-b5ba-af6faacdd58b "HTTP/2 200 OK"
+2025-04-22 00:00:22,038 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/users?select=%2A "HTTP/2 200 OK"
+2025-04-22 00:00:22,084 - INFO - HTTP Request: GET https://nlnqftrcipwrjeikexdp.supabase.co/rest/v1/residents?select=%2A "HTTP/2 200 OK"
+2025-04-22 00:00:22,110 - INFO - 127.0.0.1 - - [22/Apr/2025 00:00:22] "GET /admin_dashboard HTTP/1.1" 200 -
