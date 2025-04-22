@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, send_from_directory
 from datetime import datetime
+from security_protocols.honeypot.honeypot_handler import honeypot
 import os
 
 # Security Modules
@@ -206,6 +207,8 @@ def serve_file(filename):
 def logout():
     logout_user()
     return redirect("/")
+
+app.register_blueprint(honeypot)
 
 
 if __name__ == "__main__":
