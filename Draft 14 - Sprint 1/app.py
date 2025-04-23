@@ -309,6 +309,26 @@ def run_main():
 def run_honeypot():
     honeypot_app.run(port=3000, debug=True, use_reloader=False)  # 👈 reloader off
 
+from flask import jsonify, request
+from security_protocols.mfa import generate_mfa_secret, verify_mfa_otp
+
+@app.route("/mfa/setup", methods=["POST"])
+def mfa_setup():
+    user_id = request.json.get("user_id")
+    if not user_id:
+        return jsonify({"error": "Missing user_id"}), 400
+    return jsonify(generate_mfa_secret(user_id))
+
+@app.route("/mfa/validate", methods=["POST"])
+def mfa_validate():
+    data = request.json
+    user_id = data.get("user_id")
+    otp = data.get("otp")
+    if not user_id or not otp:
+        return jsonify({"error": "Missing user_id or otp"}), 400
+    return jsonify(*verify_mfa_otp(user_id, otp))
+
+
 if __name__ == "__main__":
     Thread(target=run_main).start()
     Thread(target=run_honeypot).start()
