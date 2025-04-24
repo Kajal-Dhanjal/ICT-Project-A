@@ -1,3 +1,4 @@
+from flask import Flask
 from flask import Blueprint, request, render_template
 from security_protocols.monitoring.logger import log_honeypot
 from .email_alert import send_alert_email
