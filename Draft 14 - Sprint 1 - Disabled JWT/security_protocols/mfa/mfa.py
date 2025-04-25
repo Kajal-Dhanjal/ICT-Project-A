@@ -3,7 +3,7 @@ from datetime import datetime
 from supabase_client.supabaseClient import supabase
 
 from functools import wraps
-from flask import redirect, url_for, request, g
+from flask import redirect, url_for, request, g, session
 import jwt
 import os
 
@@ -51,12 +51,11 @@ def mfa_required(f):
                 os.environ.get("JWT_SECRET"),
                 algorithms=["HS256"],
                 audience="authenticated"
-            )
+           )
             if not decoded.get("mfa_verified"):
                 return "MFA not completed", 403
         except Exception as e:
             print(f"MFA error: {e}")
             return redirect(url_for("login"))
-
         return f(*args, **kwargs)
     return decorated_function
