@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Care Plan Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5; }
+        .resident-card { background-color: #fff; border: 1px solid #ccc; border-radius: 6px; padding: 15px; margin-bottom: 20px; }
+        .readonly, form { margin-top: 10px; }
+        .section-label { font-weight: bold; margin-top: 10px; }
+        select, input, textarea, button { margin-top: 5px; margin-bottom: 10px; width: 100%; padding: 8px; box-sizing: border-box; }
+        button { cursor: pointer; background-color: #007BFF; color: white; border: none; border-radius: 4px; }
+        button:hover { background-color: #0056b3; }
+    </style>
+    <script>
+        function showSelectedCarePlan(selectElem, residentId) {
+          const selectedIndex = selectElem.value;
+          const allEntries = document.querySelectorAll(`[id^='plan-${residentId}-']`);
+          allEntries.forEach(entry => entry.style.display = 'none');
+      
+          const selected = document.getElementById(`plan-${residentId}-${selectedIndex}`);
+          if (selected) selected.style.display = 'block';
+        }
+      </script>
+      
+</head>
+<body>
+
+<h1>Care Plan Dashboard</h1>
+<p>Logged in as: {{ role }}</p>
+<a href="/logout">Logout</a>
+
+{% if residents %}
+    {% for item in residents %}
+    <div class="resident-card">
+        <h2>{{ item.full_name }} (Room {{ item.room }})</h2>
+
+        {% if role == "nurse" %}
+        <form method="POST" action="/submit_care_plan" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="resident_id" value="{{ item.id }}">
+            <label class="section-label">Assessment:</label>
+            <textarea name="assessment" required></textarea>
+
+            <label class="section-label">Blood Pressure:</label>
+            <input type="text" name="bp" required>
+
+            <label class="section-label">Temperature (°C):</label>
+            <input type="text" name="temp" required>
+
+            <label class="section-label">Heart Rate:</label>
+            <input type="text" name="hr" required>
+
+            <label class="section-label">Medications:</label>
+            <textarea name="medications" required></textarea>
+
+            <label class="section-label">Attachment:</label>
+            <input type="file" name="attachment">
+
+            <button type="submit">Submit Care Plan</button>
+        </form>
+        {% endif %}
+
+        <div class="readonly">
+            <label>Select Care Plan Entry:</label>
+            <select class="history-dropdown" onchange="showSelectedCarePlan(this, '{{ item.id }}')">
+                {% for plan in item.care_plans %}
+                    <option value="{{ loop.index0 }}">{{ plan.timestamp | datetimeformat }}</option>
+                {% else %}
+                    <option>No entries found</option>
+                {% endfor %}
+            </select>
+
+            <div class="care-plan-history">
+                {% for plan in item.care_plans %}
+                <div class="care-plan-entry" id="plan-{{ item.id }}-{{ loop.index0 }}" {% if not loop.first %}style="display:none;"{% endif %}>
+                    <p class="section-label">Assessment:</p>
+                    <p>{{ plan.assessment or 'Not recorded' }}</p>
+
+                    <p class="section-label">Vitals:</p>
+                    <p>BP: {{ plan.bp or 'N/A' }}</p>
+                    <p>Temp: {{ plan.temp or 'N/A' }} °C</p>
+                    <p>HR: {{ plan.hr or 'N/A' }} bpm</p>
+
+                    <p class="section-label">Medications:</p>
+                    <p>{{ plan.medications or 'None listed' }}</p>
+
+                    {% if plan.attachment %}
+                    <p class="section-label">Attachment:</p>
+                    <a href="{{ plan.attachment }}" target="_blank">View File</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No residents assigned or care plans found.</p>
+{% endif %}
+
+</body>
+</html>

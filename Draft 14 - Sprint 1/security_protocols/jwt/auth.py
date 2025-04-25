@@ -5,11 +5,14 @@ from jwt.exceptions import InvalidTokenError
 import os
 from supabase_client.supabaseClient import supabase
 
+from security_protocols.monitoring.logger import log_activity
+
 def jwt_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         access_token = request.cookies.get('access_token')
         if not access_token:
+            log_activity(None, "Unauthorized: No JWT presented")
             print("❌ No access_token in cookies.")
             return redirect(url_for('login'))
         
@@ -29,7 +32,8 @@ def jwt_required(f):
             user_id = payload.get('sub')
             print("🔍 Looking up user ID:", user_id)
 
-            user = supabase.table("users").select("id, role").eq("id", user_id).single().execute()
+            user = supabase.table("users").select("id, role, email").eq("id", user_id).single().execute()
+
             print("🔍 Supabase user query result:", user.data)
 
             if not user.data:
@@ -41,8 +45,11 @@ def jwt_required(f):
             print("✅ Auth success: g.user_id =", g.user_id, "g.role =", g.role)
 
         except Exception as e:
+            log_activity(None, f"Unauthorized: Invalid JWT - {str(e)}")
             print("❌ JWT validation or DB lookup failed:", str(e))
             return redirect(url_for('login'))
+        
+        log_activity(g.user_id, "JWT validated", email=user.data["email"])
         
         return f(*args, **kwargs)
     return decorated_function

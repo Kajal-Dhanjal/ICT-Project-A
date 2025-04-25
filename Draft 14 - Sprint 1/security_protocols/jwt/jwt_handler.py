@@ -1,7 +1,7 @@
+# ✅ JWT Creation Logic for session_management/jwt_handler.py
 import jwt
 import os
 from datetime import datetime, timedelta
-from security_protocols.monitoring.logger import log_activity
 
 def generate_jwt(user_id, role, mfa_verified=False):
     payload = {
@@ -14,7 +14,4 @@ def generate_jwt(user_id, role, mfa_verified=False):
     }
     secret = os.environ.get("JWT_SECRET")
     token = jwt.encode(payload, secret, algorithm="HS256")
-
-    from security_protocols.monitoring.logger import log_activity
-
     return token

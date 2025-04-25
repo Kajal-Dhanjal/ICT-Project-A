@@ -1,10 +1,9 @@
-from flask import Flask
 from flask import Blueprint, request, render_template
 from security_protocols.monitoring.logger import log_honeypot
 from .email_alert import send_alert_email
 
 #honeypot = Blueprint("honeypot", __name__, template_folder="hp_web_interfaces")
-app = Flask(__name__, template_folder="hp_web_interfaces")
+honeypot = Blueprint("honeypot", __name__, template_folder="hp_web_interfaces")
 
 @honeypot.route("/admin", methods=["GET", "POST"])
 def fake_admin_panel():

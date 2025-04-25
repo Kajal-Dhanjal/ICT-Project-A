@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1, h2 { color: #333; }
+        .section { margin-bottom: 40px; }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+        }
+        label, input, select { display: block; margin-top: 10px; }
+        input, select { width: 100%; padding: 5px; }
+        button { margin-top: 10px; padding: 8px 12px; }
+        .logout { float: right; }
+    </style>
+</head>
+<body>
+
+    <h1>Admin Dashboard</h1>
+    <div class="logout"><a href="/logout">Logout</a></div>
+    <p>Logged in as: {{ user.email }} (admin)</p>
+
+    <div class="section">
+        <h2>➕ Add New Resident</h2>
+        <form action="/create_resident" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="name">Full Name:</label>
+            <input type="text" name="full_name" required>
+            
+            <label for="room_number">Room Number:</label>
+            <input type="text" name="room" required>
+            
+            <button type="submit">Add Resident</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Invite New Staff</h3>
+        <form method="POST" action="/admin_dashboard">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+            <label>Email:</label><br>
+            <input type="email" name="email" required><br><br>
+        
+            <label>Role:</label><br>
+            <select name="role" required>
+                <option value="nurse">Nurse</option>
+                <option value="carer">Carer</option>
+            </select><br><br>
+        
+            <button type="submit">Generate Invite</button>
+
+            {% if invite_link %}
+    <p><strong>Invite Link:</strong></p>
+    <textarea readonly style="width:100%;">{{ invite_link }}</textarea>
+{% endif %}
+
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>👥 Assign Staff to Resident</h2>
+        <form action="/assign_staff" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="staff_id">Select Staff:</label>
+            <select name="staff_id" required>
+                {% for u in users %}
+                  {% if u.role != 'admin' %}
+                    <option value="{{ u.id }}">{{ u.email }} ({{ u.role }})</option>
+                  {% endif %}
+                {% endfor %}
+            </select>
+
+            <label for="resident_id">Select Resident:</label>
+            <select name="resident_id" required>
+                {% for r in residents %}
+                    <option value="{{ r.id }}">{{ r.full_name }} (Room {{ r.room }})</option>
+                {% endfor %}
+            </select>
+
+            <label for="access">Access Level:</label>
+            <select name="access_level" required>
+                <option value="read">Read</option>
+                <option value="write">Write</option>
+            </select>
+
+            <button type="submit">Assign Access</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>📋 Current Users</h2>
+        {% for u in users %}
+            <div class="card">
+                <strong>{{ u.email }}</strong><br>
+                Role: {{ u.role }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="section">
+        <h2>🛏 Current Residents</h2>
+        {% for r in residents %}
+            <div class="card">
+                <strong>{{ r.full_name }}</strong><br>
+                Room: {{ r.room }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="section">
+        <h2 onclick="toggleLogins()" style="cursor:pointer; background-color:#f0f0f0; padding:10px; border-radius:8px;">
+            🗂️ Logins ▼
+        </h2>
+        <div id="loginsSection" style="display:none; margin-top:10px;">
+            {% if logs %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Time/Date</th>
+                        <th>User</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log.timestamp }}</td>
+                        <td>
+                            {% if log.user_id %}
+                                {% for user in all_users %}
+                                    {% if user.id == log.user_id %}
+                                        {{ user.email }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% elif log.email %}
+                                <span style="color: #ff4444;">{{ log.email }}</span>
+                            {% else %}
+                                <span style="color: #888;">Unknown user</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ log.action }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No recent login activity.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 onclick="toggleJwtLogs()" style="cursor:pointer; background-color:#f0f0f0; padding:10px; border-radius:8px;">
+            🔐 JWT Logs ▼
+        </h2>
+        <div id="jwtSection" style="display:none; margin-top:10px;">
+            {% if logs %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Time/Date</th>
+                        <th>User</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                        {% if "JWT" in log.action %}
+                        <tr>
+                            <td>{{ log.timestamp }}</td>
+                            <td>
+                                {% if log.user_id %}
+                                    {% for user in all_users %}
+                                        {% if user.id == log.user_id %}
+                                        {% if user.role == 'admin' %}
+                                        <strong style="color:#0b5ed7;">{{ user.email }} (admin)</strong>
+                                    {% else %}
+                                        {{ user.email }}
+                                    {% endif %}
+                                    
+                                        {% endif %}
+                                    {% endfor %}
+                                {% elif log.email %}
+                                    <span style="color: #ff4444;">{{ log.email }}</span>
+                                {% else %}
+                                    <span style="color: #888;">Unknown user</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ log.action }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No JWT activity logged yet.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script>
+    function toggleJwtLogs() {
+        const section = document.getElementById("jwtSection");
+        section.style.display = (section.style.display === "none") ? "block" : "none";
+    }
+    </script>
+    
+
+    <div class="section">
+        <h2 onclick="toggleHoneypot()" style="cursor:pointer; background-color:#f0f0f0; padding:10px; border-radius:8px;">
+            🐝 Honeypot Logs ▼
+        </h2>
+        <div id="honeypotSection" style="display:none; margin-top:10px;">
+            {% if honeypot_logs %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Time/Date</th>
+                        <th>IP Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in honeypot_logs %}
+                    <tr>
+                        <td>{{ log.timestamp }}</td>
+                        <td>{{ log.ip }}</td>
+                        <td>{{ log.action }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No honeypot activity detected.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+    function toggleLogins() {
+        const section = document.getElementById("loginsSection");
+        section.style.display = (section.style.display === "none") ? "block" : "none";
+    }
+    function toggleHoneypot() {
+        const section = document.getElementById("honeypotSection");
+        section.style.display = (section.style.display === "none") ? "block" : "none";
+    }
+    </script>
+
+</body>
+</html>

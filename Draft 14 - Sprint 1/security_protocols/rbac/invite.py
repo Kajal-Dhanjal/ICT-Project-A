@@ -7,9 +7,13 @@ from security_protocols.passwords.password_hasher import hash_password
 from security_protocols.passwords.password_hasher import hash_password
 from security_protocols.passwords.hibp_checker import check_pwned_password  # ✅ Added for HIBP breach checking
 
+from security_protocols.jwt.auth import jwt_required
+from security_protocols.mfa.mfa import mfa_required
 
 
 # Step 1: Create an invite token
+@jwt_required
+@mfa_required
 def create_invite_token(email: str, role: str) -> str:
     token = str(uuid.uuid4())
     user_id = request.headers.get("X-User-ID")
@@ -30,6 +34,8 @@ def create_invite_token(email: str, role: str) -> str:
 
 
 # Step 2: Verify the invite token
+@jwt_required
+@mfa_required
 def verify_invite_token(token: str):
     response = supabase.table("invite_tokens").select("*").eq("token", token).eq("used", False).execute()
     if not response.data:
@@ -38,6 +44,8 @@ def verify_invite_token(token: str):
 
 
 # Step 3: Complete registration with Supabase Auth
+@jwt_required
+@mfa_required
 def complete_registration(token: str, password: str):
     # Validate password complexity first
     
@@ -88,6 +96,16 @@ def complete_registration(token: str, password: str):
         if not user_response.data:
             raise Exception("Failed to create user profile in database")
 
+# ✅ Now safe to mark invite as used
+        mark_token_used(token)
+
+        return {
+        "success": True,
+        "user_id": auth_response.user.id,
+        "email": email,
+        "role": role
+}
+
         # Only mark token used after successful registration
         mark_token_used(token)
 
@@ -110,6 +128,8 @@ def complete_registration(token: str, password: str):
         raise Exception(f"Registration failed: {str(e)}") from e
 
 # Step 4 (Optional): For inserting user via a passed-in token (e.g. JWT login flow)
+@jwt_required
+@mfa_required
 def register_user(email: str, name: str, role: str, jwt_token: str):
     scoped_client = supabase_create_client(supabase_key=jwt_token)
 
@@ -127,6 +147,8 @@ def register_user(email: str, name: str, role: str, jwt_token: str):
 
 
 # Step 5: Mark invite as used (manual)
+@jwt_required
+@mfa_required
 def mark_token_used(token: str):
     response = supabase.table("invite_tokens").update({"used": True}).eq("token", token).execute()
 

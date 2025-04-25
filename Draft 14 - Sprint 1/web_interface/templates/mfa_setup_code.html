@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MFA Setup</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .qr-code { margin: 20px 0; }
+        .secret-code { font-family: monospace; background: #f0f0f0; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Set Up Multi-Factor Authentication</h2>
+    
+    <!-- Show QR Code -->
+    <div class="qr-code">
+        <img src="/qr/qr_{{ user_id }}.png" alt="MFA QR Code">
+    </div>
+
+    <!-- Show Secret Code -->
+    <p>Or manually enter this code in your authenticator app:</p>
+    <div class="secret-code">{{ secret }}</div>
+
+    <p style="margin-top: 30px;">
+        <a href="/mfa">I've set up MFA. Continue to Login</a>
+    </p>
+</body>
+</html>

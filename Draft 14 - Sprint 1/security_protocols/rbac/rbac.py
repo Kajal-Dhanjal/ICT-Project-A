@@ -19,7 +19,10 @@ def get_user_by_id(uid):
     return None
 
 def get_role(user):
-    return user.get("role")
+    # 👇 Explicitly validate allowed roles
+    allowed_roles = ["admin", "nurse", "carer", "resident"]
+    role = user.get("role")
+    return role if role in allowed_roles else None
 
 # -------------------------------
 # Access Management
