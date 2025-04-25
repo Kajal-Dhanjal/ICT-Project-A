@@ -8,29 +8,34 @@ from supabase_client.supabaseClient import supabase
 from security_protocols.monitoring.logger import log_activity
 
 def jwt_required(f):
+    from functools import wraps
+    from flask import request, g
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        print("🔕 JWT disabled for testing")
+        print("🔕 JWT disabled — simulating user context for testing")
 
-        from flask import request
+        # Simulate roles based on route
+        path = request.path
 
-        # Simulate based on URL being accessed
-        if "/admin_dashboard" in request.path:
-            g.user_id = "fbaaf8a8-134e-4d18-8cf2-89387778ffc6"
+        if "/admin_dashboard" in path or "/admin" in path:
+            g.user_id = "fbaaf8a8-134e-4d18-8cf2-89387778ffc6"  # admin
             g.role = "admin"
-        elif "/care_plan_dashboard" in request.path:
-            g.user_id = "d8fa56e0-37ae-4f34-8adf-05b2b32baa04"
+        elif "/care_plan_dashboard" in path or "/submit_care_plan" in path:
+            g.user_id = "d8fa56e0-37ae-4f34-8adf-05b2b32baa04"  # nurse
             g.role = "nurse"
-        elif "/resident_dashboard" in request.path:
-            g.user_id = "f6533a7c-42e6-4f3b-8a63-67fa1d915837"
+        elif "/resident_dashboard" in path:
+            g.user_id = "f6533a7c-42e6-4f3b-8a63-67fa1d915837"  # carer
             g.role = "carer"
         else:
-            # Default fallback role
+            # fallback to admin role
             g.user_id = "edf3c908-799e-4562-b5bd-591807de03a1"
             g.role = "admin"
 
         return f(*args, **kwargs)
+
     return decorated_function
+
 
 
 #def jwt_required(f):

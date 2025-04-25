@@ -387,6 +387,7 @@ def submit_care_plan():
     return redirect("/care_plan_dashboard")
 
 @app.route("/create_resident", methods=["POST"])
+
 @jwt_required
 @mfa_required
 def create_resident():

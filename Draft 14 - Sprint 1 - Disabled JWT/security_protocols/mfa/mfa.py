@@ -38,24 +38,33 @@ def verify_mfa_otp(user_id, otp_code):
 
     return {"status": "success", "message": "OTP verified"}, 200
 
+#def mfa_required(f):
+    #@wraps(f)
+    #def decorated_function(*args, **kwargs):
+#        access_token = request.cookies.get("access_token")
+ #       if not access_token:
+  #          return redirect(url_for("login"))
+#
+ #       try:
+  #          decoded = jwt.decode(
+   #             access_token,
+    #            os.environ.get("JWT_SECRET"),
+     #           algorithms=["HS256"],
+      #          audience="authenticated"
+       #     )
+        #    if not decoded.get("mfa_verified"):
+         #       return "MFA not completed", 403
+#        except Exception as e:
+ #           print(f"MFA error: {e}")
+  #          return redirect(url_for("login"))
+#
+ #       return f(*args, **kwargs)
+  #  return decorated_function
 def mfa_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        access_token = request.cookies.get("access_token")
-        if not access_token:
-            return redirect(url_for("login"))
-
-        try:
-            decoded = jwt.decode(
-                access_token,
-                os.environ.get("JWT_SECRET"),
-                algorithms=["HS256"],
-                audience="authenticated"
-           )
-            if not decoded.get("mfa_verified"):
-                return "MFA not completed", 403
-        except Exception as e:
-            print(f"MFA error: {e}")
-            return redirect(url_for("login"))
+        print("🔕 MFA is disabled manually")
+        session["user_id"] = "test-id"
+        session["role"] = "admin"
         return f(*args, **kwargs)
     return decorated_function
