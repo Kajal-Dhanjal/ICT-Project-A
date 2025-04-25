@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #2b2b2b; }
+        .role { font-weight: bold; color: #555; margin-bottom: 20px; }
+        .resident-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .resident-card h3 {
+            margin: 0;
+        }
+        .logout {
+            float: right;
+            margin-top: -40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ user.full_name }}</h1>
+    <p>You are logged in as a Resident</p>
+    <h3>Room: {{ user.room }}</h3>
+
+    <form method="POST" action="/logout">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <a href="/logout" onclick="this.closest('form').submit(); return false;">Logout</a>
+  </form>
+  
+    <h2>Your Basic Health Summary</h2>
+    {% if care_summary %}
+      <p>Blood Pressure: {{ care_summary.bp }}</p>
+      <p>Temperature: {{ care_summary.temp }}°C</p>
+      <p>Heart Rate: {{ care_summary.hr }} bpm</p>
+    {% else %}
+      <p>No health summary available.</p>
+    {% endif %}
+  
+    <a href="/logout">Logout</a>
+  </body>
+  
+</html>

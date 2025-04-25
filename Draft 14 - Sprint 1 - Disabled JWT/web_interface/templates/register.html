@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form action="{{ url_for('register') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="token" value="{{ token }}">
+        Email: <input type="email" value="{{ email }}" readonly><br><br>
+        Set Password: <input type="password" name="password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

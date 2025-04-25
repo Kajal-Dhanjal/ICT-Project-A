@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+        input, button {
+            margin: 5px 0;
+            padding: 6px;
+        }
+        #mfa-section, #qr-section {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            width: fit-content;
+        }
+        .button-row {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+
+    {% if message %}
+        <p>{{ message }}</p>
+        <form method="get">
+            <button type="submit">Login</button>
+        </form>
+    {% else %}
+        <form method="post" action="/login">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label>Email:</label><br>
+            <input type="email" name="email" required><br>
+            <label>Password:</label><br>
+            <input type="password" name="password" required><br>
+            <input type="submit" value="Log In">
+        </form>
+    {% endif %}
+
+    {% if session.pending_user %}
+        
+        </div>
+
+    {% endif %}
+
+
+</body>
+</html>

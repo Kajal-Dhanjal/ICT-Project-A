@@ -1,0 +1,51 @@
+<!-- mfa.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MFA Verification</title>
+    <style>
+        #mfa-section, #qr-section {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            width: fit-content;
+        }
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Multi-Factor Authentication</h2>
+
+    <div class="button-row">
+        <button onclick="showOTP()">Verify with Code</button>
+    </div>
+
+    <!-- OTP Verification -->
+    <div id="mfa-section">
+        <form method="POST" action="/mfa/validate">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="user_id" value="{{ user_id }}">
+            <label>Enter OTP:</label>
+            <input type="text" name="otp" required>
+            <button type="submit">Verify</button>
+        </form>
+        {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+    </div>
+
+
+    <script>
+        function showOTP() {
+            document.getElementById("mfa-section").style.display = "block";
+            document.getElementById("qr-section").style.display = "none";
+        }
+        function showQR() {
+            document.getElementById("qr-section").style.display = "block";
+            document.getElementById("mfa-section").style.display = "none";
+        }
+    </script>
+</body>
+</html>

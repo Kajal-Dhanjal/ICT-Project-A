@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Invite</title>
+</head>
+<body>
+    <h1>Create User Invitation</h1>
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Role:</label><br>
+        <select name="role">
+            <option value="nurse">Nurse</option>
+            <option value="carer">Carer</option>
+            <option value="resident">Resident</option>
+            <option value="admin">Admin</option> <!-- ✅ Add this -->
+          </select>
+          <br><br>
+
+        <button type="submit">Generate Invite</button>
+    </form>
+
+    <p> DO NOT WORRY ABOUT THE ABOVE FORM, ITS JUST ANOTHER WAY TO CREATE USERS</p>
+
+    {% if invite_link %}
+        <p><strong>Invite Link:</strong> <a href="{{ invite_link }}">{{ invite_link }}</a></p>
+    {% endif %}
+</body>
+</html>
