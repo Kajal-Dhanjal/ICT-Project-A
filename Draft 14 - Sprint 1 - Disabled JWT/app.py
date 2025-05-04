@@ -15,6 +15,7 @@ from security_protocols.rbac.email_inviter import send_invite_email
 from security_protocols.jwt.auth import jwt_required
 from security_protocols.jwt.jwt_handler import generate_jwt
 from flask import make_response
+from flask import url_for
 
 
 
@@ -53,6 +54,14 @@ limiter = Limiter(       # Rate limiting
 )
 
 secret_key = os.getenv("FLASK_SECRET_KEY")
+
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route("/admin/invite", methods=["GET", "POST"])
 @jwt_required
