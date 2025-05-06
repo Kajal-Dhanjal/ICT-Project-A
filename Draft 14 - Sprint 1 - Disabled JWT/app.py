@@ -63,6 +63,50 @@ def home():
 def about():
     return render_template('about.html')
 
+
+@app.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form.get("email")
+
+        user = get_user_by_email(email)
+        if not user:
+            return render_template("forgot_password.html", message="No user found.")
+
+        from itsdangerous import URLSafeTimedSerializer
+        s = URLSafeTimedSerializer(secret_key)
+        token = s.dumps(email, salt="password-reset")
+
+        reset_link = url_for("reset_password", token=token, _external=True)
+        send_invite_email(email, reset_link)  # reuse function for sending the reset link
+
+        return render_template("forgot_password.html", message="Reset link sent to your email.")
+
+    return render_template("forgot_password.html")
+
+@app.route("/reset-password/<token>", methods=["GET", "POST"])
+def reset_password(token):
+    from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
+    s = URLSafeTimedSerializer(secret_key)
+
+    try:
+        email = s.loads(token, salt="password-reset", max_age=3600)
+    except (SignatureExpired, BadSignature):
+        return "Invalid or expired token", 400
+
+    if request.method == "POST":
+        new_password = request.form.get("password")
+        # Call Supabase password reset logic or update directly if allowed
+        user = get_user_by_email(email)
+        if not user:
+            return "User not found", 404
+
+        supabase.auth.admin.update_user_by_id(user["id"], {"password": new_password})
+        return redirect("/login")
+
+    return render_template("reset_password.html", token=token)
+
+
 @app.route("/admin/invite", methods=["GET", "POST"])
 @jwt_required
 @mfa_required
