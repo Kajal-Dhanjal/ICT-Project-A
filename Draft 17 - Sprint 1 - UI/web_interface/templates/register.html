@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Registration - ElderSafe Connect</title>
+    
+    <!-- AOS for scroll animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <style>
+      :root {
+        --color-primary: #004e7c;
+        --color-secondary: #007bbd;
+        --color-accent: #f4c542;
+        --color-bg: #f5f5f5;
+        --color-text: #333333;
+        --color-white: #ffffff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background: var(--color-bg);
+        color: var(--color-text);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: var(--color-primary);
+        color: var(--color-white);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      .navbar .site-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .navbar .nav-group {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .navbar .nav-btn {
+        text-decoration: none;
+        background: var(--color-accent);
+        color: var(--color-primary);
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.4rem;
+        font-weight: bold;
+        transition: background 0.3s, color 0.3s;
+      }
+      .navbar .nav-btn:hover {
+        background: var(--color-secondary);
+        color: var(--color-white);
+      }
+      main {
+        flex: 1;
+        padding: 2rem;
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .register-card {
+        background: var(--color-white);
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-top: 2rem;
+      }
+      .register-card h2 {
+        color: var(--color-primary);
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--color-text);
+      }
+      .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+      }
+      .form-group input[readonly] {
+        background-color: #f9f9f9;
+      }
+      .register-btn {
+        background: var(--color-accent);
+        color: var(--color-primary);
+        font-weight: bold;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 0.5rem;
+        width: 100%;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+      }
+      .register-btn:hover {
+        background: var(--color-secondary);
+        color: var(--color-white);
+      }
+      .hint {
+        font-size: 0.85rem;
+        margin-top: 0.3rem;
+      }
+      
+      /* Password Tooltip Styles */
+      .password-container {
+        position: relative;
+      }
+      
+      .password-tooltip {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: var(--color-white);
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        margin-top: 0.5rem;
+        width: 280px;
+        transition: opacity 0.3s ease;
+      }
+      
+      .password-tooltip.visible {
+        display: block;
+      }
+      
+      .tooltip-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--color-primary);
+      }
+      
+      .requirements-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .requirements-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.4rem;
+      }
+      
+      .requirements-list li:last-child {
+        margin-bottom: 0;
+      }
+      
+      .match-icon {
+        margin-right: 0.5rem;
+        color: green;
+      }
+      
+      .not-match-icon {
+        margin-right: 0.5rem;
+        color: red;
+      }
+      
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 0.75rem 1rem;
+        }
+        .navbar .site-title {
+          font-size: 1.25rem;
+        }
+        main {
+          padding: 1.5rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .register-card {
+          padding: 1.5rem;
+        }
+        .password-tooltip {
+          left: 0;
+          right: 0;
+          width: 100%;
+        }
+      }
+    </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="site-title">ElderSafe Connect</div>
+    <div class="nav-group">
+      <a href="{{ url_for('about') }}" class="nav-btn">About</a>
+      <a href="{{ url_for('home') }}" class="nav-btn">Home</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="register-card" data-aos="fade-up" data-aos-duration="800">
+      <h2>User Registration</h2>
+      <form action="{{ url_for('register') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="token" value="{{ token }}">
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" value="{{ email }}" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Set Password:</label>
+          <div class="password-container">
+            <input type="password" id="password" name="password" required>
+            <div id="passwordTooltip" class="password-tooltip">
+              <div class="tooltip-title">Password requirements:</div>
+              <ul class="requirements-list">
+                <li id="lengthCheck"><span class="not-match-icon">❌</span> At least 8 characters</li>
+                <li id="uppercaseCheck"><span class="not-match-icon">❌</span> At least one uppercase letter</li>
+                <li id="lowercaseCheck"><span class="not-match-icon">❌</span> At least one lowercase letter</li>
+                <li id="numberCheck"><span class="not-match-icon">❌</span> At least one number</li>
+                <li id="specialCheck"><span class="not-match-icon">❌</span> At least one special character</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm">Confirm Password:</label>
+          <input type="password" id="confirm" name="confirm_password" required>
+          <div class="hint" id="matchHint" style="color: red;"></div>
+        </div>
+
+        <button type="submit" class="register-btn">Register</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- AOS init -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ once: true });</script>
+
+  <script>
+    const passwordInput = document.getElementById("password");
+    const confirmInput = document.getElementById("confirm");
+    const matchHint = document.getElementById("matchHint");
+    const passwordTooltip = document.getElementById("passwordTooltip");
+
+    const lengthCheck = document.getElementById("lengthCheck");
+    const uppercaseCheck = document.getElementById("uppercaseCheck");
+    const lowercaseCheck = document.getElementById("lowercaseCheck");
+    const numberCheck = document.getElementById("numberCheck");
+    const specialCheck = document.getElementById("specialCheck");
+    
+    // Show tooltip when password field is focused
+    passwordInput.addEventListener("focus", function() {
+      passwordTooltip.classList.add("visible");
+    });
+    
+    // Hide tooltip when clicking outside
+    document.addEventListener("click", function(event) {
+      if (event.target !== passwordInput && !passwordTooltip.contains(event.target)) {
+        passwordTooltip.classList.remove("visible");
+      }
+    });
+
+    passwordInput.addEventListener("input", () => {
+      const val = passwordInput.value;
+
+      // Update length requirement
+      if (val.length >= 8) {
+        lengthCheck.innerHTML = '<span class="match-icon">✓</span> At least 8 characters';
+      } else {
+        lengthCheck.innerHTML = '<span class="not-match-icon">❌</span> At least 8 characters';
+      }
+
+      // Update uppercase requirement
+      if (/[A-Z]/.test(val)) {
+        uppercaseCheck.innerHTML = '<span class="match-icon">✓</span> At least one uppercase letter';
+      } else {
+        uppercaseCheck.innerHTML = '<span class="not-match-icon">❌</span> At least one uppercase letter';
+      }
+
+      // Update lowercase requirement
+      if (/[a-z]/.test(val)) {
+        lowercaseCheck.innerHTML = '<span class="match-icon">✓</span> At least one lowercase letter';
+      } else {
+        lowercaseCheck.innerHTML = '<span class="not-match-icon">❌</span> At least one lowercase letter';
+      }
+
+      // Update number requirement
+      if (/\d/.test(val)) {
+        numberCheck.innerHTML = '<span class="match-icon">✓</span> At least one number';
+      } else {
+        numberCheck.innerHTML = '<span class="not-match-icon">❌</span> At least one number';
+      }
+
+      // Update special character requirement
+      if (/[\W_]/.test(val)) {
+        specialCheck.innerHTML = '<span class="match-icon">✓</span> At least one special character';
+      } else {
+        specialCheck.innerHTML = '<span class="not-match-icon">❌</span> At least one special character';
+      }
+    });
+
+    confirmInput.addEventListener("input", () => {
+      if (confirmInput.value === passwordInput.value) {
+        matchHint.innerHTML = '<span class="match-icon">✓</span> Passwords match';
+        matchHint.style.color = "green";
+      } else {
+        matchHint.innerHTML = '<span class="not-match-icon">❌</span> Passwords do not match';
+        matchHint.style.color = "red";
+      }
+    });
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+      const val = passwordInput.value;
+      const confirm = confirmInput.value;
+
+      if (
+        val.length < 8 ||
+        !/[A-Z]/.test(val) ||
+        !/[a-z]/.test(val) ||
+        !/\d/.test(val) ||
+        !/[\W_]/.test(val)
+      ) {
+        alert("Password does not meet all requirements.");
+        e.preventDefault();
+      } else if (val !== confirm) {
+        alert("Passwords do not match.");
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
