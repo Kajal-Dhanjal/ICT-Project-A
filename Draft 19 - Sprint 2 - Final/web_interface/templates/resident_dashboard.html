@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Dashboard - ElderSafe Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="site-title">ElderSafe Connect</div>
+        <div class="nav-group">
+            <div class="user-info">Logged in as: Resident</div>
+            <a href="/logout" class="nav-btn">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="welcome-header" data-aos="fade-up" data-aos-duration="800">
+            <h1>Welcome, {{ user.full_name }}</h1>
+            <p class="role">You are logged in as a Resident</p>
+            <p class="room">Room: {{ user.room }}</p>
+        </div>
+        
+        <section class="health-summary" data-aos="fade-up" data-aos-delay="100">
+            <h2>Your Basic Health Summary</h2>
+            
+            {% if care_summary %}
+            <div class="health-metrics">
+                <div class="health-metric">
+                    <div class="label">Blood Pressure</div>
+                    <div class="value">{{ care_summary.bp }}</div>
+                </div>
+                
+                <div class="health-metric">
+                    <div class="label">Temperature</div>
+                    <div class="value">{{ care_summary.temp }}°C</div>
+                </div>
+                
+                <div class="health-metric">
+                    <div class="label">Heart Rate</div>
+                    <div class="value">{{ care_summary.hr }} bpm</div>
+                </div>
+            </div>
+            {% else %}
+            <p class="no-data">No health summary available at this time.</p>
+            {% endif %}
+        </section>
+        
+        <div class="logout-container">
+            <form method="POST" action="/logout">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <a href="/logout" onclick="this.closest('form').submit(); return false;" class="logout-link">Logout</a>
+            </form>
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+/* Admin Dashboard Styles */
+
+/* Log section styles */
+.table-container {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-card-border);
+}
+
+th {
+    background-color: rgba(0, 78, 124, 0.05);
+    color: var(--color-primary);
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+tr:hover {
+    background-color: rgba(0, 78, 124, 0.02);
+}
+
+/* Special row styling */
+.error-row {
+    background-color: rgba(231, 76, 60, 0.05);
+}
+
+.error-row:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.success-row {
+    background-color: rgba(40, 167, 69, 0.05);
+}
+
+.success-row:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.honeypot-row {
+    background-color: rgba(243, 156, 18, 0.05);
+}
+
+.honeypot-row:hover {
+    background-color: rgba(243, 156, 18, 0.1);
+}
+
+.email-log {
+    color: var(--color-danger);
+    font-style: italic;
+}
+
+.admin-user {
+    color: var(--color-secondary);
+    font-weight: 500;
+}
+
+.muted-text {
+    color: var(--color-muted);
+    font-style: italic;
+}
+
+/* Collapsible sections */
+.collapsible {
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    background-color: rgba(0, 78, 124, 0.05);
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible:hover {
+    background-color: rgba(0, 78, 124, 0.1);
+}
+
+.collapsible .toggle-icon {
+    transition: transform 0.3s;
+}
+
+.collapsible-content {
+    display: none;
+    padding: 1rem 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Copy button styling */
+.copy-invite-btn {
+    display: block;
+    background: var(--color-secondary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.copy-invite-btn:hover {
+    background-color: var(--color-primary);
+}
+
+/* Invite link textarea */
+.invite-link {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(0, 78, 124, 0.05);
+    border: 1px solid var(--color-card-border);
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+    font-family: monospace;
+    resize: none;
+    word-break: break-all;
+    height: 60px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    th, td {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .collapsible {
+        padding: 0.5rem 0.75rem;
+    }
+}

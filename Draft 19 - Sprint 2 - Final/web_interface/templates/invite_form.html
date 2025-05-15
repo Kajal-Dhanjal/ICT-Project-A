@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Invite - ElderSafe Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="site-title">ElderSafe Connect</div>
+        <div class="nav-group">
+            <a href="{{ url_for('dashboard') }}" class="nav-btn">Dashboard</a>
+            <a href="{{ url_for('logout') }}" class="nav-btn">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="page-title">User Invitation</h1>
+        
+        <div class="invite-card" data-aos="fade-up" data-aos-duration="800">
+            <h2>Create User Invitation</h2>
+            
+            <form method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter email for the new user">
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role">
+                        <option value="nurse">Nurse</option>
+                        <option value="carer">Carer</option>
+                        <option value="resident">Resident</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Generate Invite</button>
+            </form>
+        </div>
+        
+        {% if invite_link %}
+        <div class="result-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+            <div class="result-card">
+                <h2>Invitation Generated</h2>
+                <p>The invitation link has been created successfully. Share this link with the user:</p>
+                
+                <div class="invite-link-display">
+                    <a href="{{ invite_link }}">{{ invite_link }}</a>
+                </div>
+                
+                <button class="copy-invite-btn" data-target=".invite-link-display" style="margin-top: 1rem;">
+                    Copy Link
+                </button>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

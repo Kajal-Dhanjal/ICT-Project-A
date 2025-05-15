@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElderSafe Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="site-title">ElderSafe Connect</div>
+        <div class="nav-group">
+            <a href="{{ url_for('about') }}" class="nav-btn">About</a>
+            <a href="{{ url_for('login') }}" class="nav-btn">Log In</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>ElderSafe Connect</h1>
+    </section>
+
+    <main>
+        <div class="intro" data-aos="fade-up" data-aos-duration="800">
+            <p>
+                Welcome to <strong>ElderSafe Connect</strong>, your all-in-one
+                incident management hub for aged-care facilities. Below are just a few
+                of our key capabilities:
+            </p>
+        </div>
+
+        <div class="features">
+            <div class="feature" data-aos="fade-up" data-aos-delay="100">
+                <h3>🔔 Real-Time Alerts</h3>
+                <p>
+                    Instant notifications for security incidents, suspicious logins, or
+                    system anomalies—so you can act before small issues become big
+                    problems.
+                </p>
+            </div>
+            <div class="feature" data-aos="fade-up" data-aos-delay="200">
+                <h3>🛠️ Admin Dashboard</h3>
+                <p>
+                    Manage residents and staff in one place: add new residents, generate
+                    staff invites with specific roles, view all users and residents at a
+                    glance, and access collapsible logs for login, JWT, and honeypot
+                    events.
+                </p>
+            </div>
+            <div class="feature" data-aos="fade-up" data-aos-delay="300">
+                <h3>👥 Role-Based Access</h3>
+                <p>
+                    Securely manage staff permissions—admins, nurses, carers—so everyone
+                    sees exactly what they need, nothing more, nothing less.
+                </p>
+            </div>
+            <div class="feature" data-aos="fade-up" data-aos-delay="400">
+                <h3>🔒 Integrated MFA</h3>
+                <p>
+                    Protect sensitive resident data with built-in multi-factor
+                    authentication powered by Supabase, ensuring only authorized
+                    personnel can log in.
+                </p>
+            </div>
+            <div class="feature" data-aos="fade-up" data-aos-delay="500">
+                <h3>📁 Secure Data Storage</h3>
+                <p>
+                    Encrypted backups and automated versioning ensure all resident and
+                    incident data remains safe, intact, and recoverable at any time.
+                </p>
+            </div>
+            <div class="feature" data-aos="fade-up" data-aos-delay="600">
+                <h3>📱 Mobile-Friendly</h3>
+                <p>
+                    Responsive design and mobile-optimized views let caregivers and
+                    administrators access the portal seamlessly on tablets or
+                    smartphones.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

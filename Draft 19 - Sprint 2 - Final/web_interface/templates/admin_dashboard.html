@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ElderSafe Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="site-title">ElderSafe Connect</div>
+        <div class="nav-group">
+            <div class="user-info">Logged in as: {{ user.email }} (admin)</div>
+            <a href="/logout" class="nav-btn">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="page-title">Admin Dashboard</h1>
+
+        <div class="grid-2">
+            <!-- Left Column -->
+            <div>
+                <!-- Add New Resident Section -->
+                <section class="section" data-aos="fade-up" data-aos-duration="800">
+                    <h2><span class="emoji">➕</span> Add New Resident</h2>
+                    <form action="/create_resident" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="form-group">
+                            <label for="full_name">Full Name:</label>
+                            <input type="text" id="full_name" name="full_name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="room">Room Number:</label>
+                            <input type="text" id="room" name="room" required>
+                        </div>
+                        
+                        <button type="submit">Add Resident</button>
+                    </form>
+                </section>
+                
+                <!-- Invite New Staff Section -->
+                <section class="section" data-aos="fade-up" data-aos-delay="100">
+                    <h2><span class="emoji">👤</span> Invite New Staff</h2>
+                    <form method="POST" action="/admin_dashboard">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="role">Role:</label>
+                            <select id="role" name="role" required>
+                                <option value="nurse">Nurse</option>
+                                <option value="carer">Carer</option>
+                                <option value="resident">Resident</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit">Generate Invite</button>
+                    </form>
+                    
+                    {% if invite_link %}
+                    <div style="margin-top: 1rem;">
+                        <p><strong>Invite Link:</strong></p>
+                        <textarea class="invite-link" readonly>{{ invite_link }}</textarea>
+                        <button class="copy-invite-btn" data-target=".invite-link" style="margin-top: 0.5rem;">Copy Link</button>
+                    </div>
+                    {% endif %}
+                </section>
+                
+                <!-- Assign Staff Section -->
+                <section class="section" data-aos="fade-up" data-aos-delay="200">
+                    <h2><span class="emoji">👥</span> Assign Staff to Resident</h2>
+                    <form action="/assign_staff" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="form-group">
+                            <label for="staff_id">Select Staff:</label>
+                            <select id="staff_id" name="staff_id" required>
+                                {% for u in users %}
+                                    {% if u.role != 'admin' %}
+                                    <option value="{{ u.id }}">{{ u.email }} ({{ u.role }})</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resident_id">Select Resident:</label>
+                            <select id="resident_id" name="resident_id" required>
+                                {% for r in residents %}
+                                <option value="{{ r.id }}">{{ r.full_name }} (Room {{ r.room }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="access_level">Access Level:</label>
+                            <select id="access_level" name="access_level" required>
+                                <option value="read">Read</option>
+                                <option value="write">Write</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit">Assign Access</button>
+                    </form>
+                </section>
+            </div>
+            
+            <!-- Right Column -->
+            <div>
+                <!-- Current Users Section -->
+                <section class="section" data-aos="fade-up" data-aos-delay="300">
+                    <h2><span class="emoji">📋</span> Current Users</h2>
+                    {% for u in users %}
+                    <div class="card">
+                        <strong>{{ u.email }}</strong><br>
+                        Role: {{ u.role }}
+                    </div>
+                    {% endfor %}
+                </section>
+                
+                <!-- Current Residents Section -->
+                <section class="section" data-aos="fade-up" data-aos-delay="400">
+                    <h2><span class="emoji">🛏</span> Current Residents</h2>
+                    {% for r in residents %}
+                    <div class="card">
+                        <strong>{{ r.full_name }}</strong><br>
+                        Room: {{ r.room }}
+                    </div>
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+
+        <!-- Log Sections -->
+        <section class="section" data-aos="fade-up" data-aos-delay="500">
+            <h2 class="collapsible">
+                <span class="emoji">📂</span> Logins <span class="toggle-icon">▲</span>
+            </h2>
+            <div id="loginsSection" class="collapsible-content" style="display: block;">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="20%">Time/Date</th>
+                                <th width="25%">User</th>
+                                <th width="55%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in logs %}
+                            <tr class="{% if 'Failed' in log.action %}error-row{% elif 'successful' in log.action %}success-row{% endif %}">
+                                <td>{{ log.timestamp }}</td>
+                                <td>
+                                    {% if log.user_id %}
+                                        {% for user in all_users %}
+                                            {% if user.id == log.user_id %}
+                                                {{ user.email or "Unknown" }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% elif log.email %}
+                                        <span class="email-log">{{ log.email }}</span>
+                                    {% else %}
+                                        <span class="muted-text">Unknown user</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ log.action }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" data-aos="fade-up" data-aos-delay="600">
+            <h2 class="collapsible">
+                <span class="emoji">🔑</span> JWT Logs <span class="toggle-icon">▲</span>
+            </h2>
+            <div id="jwtSection" class="collapsible-content" style="display: block;">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="20%">Time/Date</th>
+                                <th width="25%">User</th>
+                                <th width="55%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in logs %}
+                                {% if "JWT" in log.action %}
+                                <tr>
+                                    <td>{{ log.timestamp }}</td>
+                                    <td>
+                                        {% if log.user_id %}
+                                            {% for user in all_users %}
+                                                {% if user.id == log.user_id %}
+                                                    <span class="{% if user.role == 'admin' %}admin-user{% endif %}">
+                                                        {{ user.email or "Unknown" }}
+                                                    </span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% elif log.email %}
+                                            <span class="email-log">{{ log.email }}</span>
+                                        {% else %}
+                                            <span class="muted-text">Unknown user</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ log.action }}</td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" data-aos="fade-up" data-aos-delay="700">
+            <h2 class="collapsible">
+                <span class="emoji">🐝</span> Honeypot Logs <span class="toggle-icon">▲</span>
+            </h2>
+            <div id="honeypotSection" class="collapsible-content" style="display: block;">
+                {% if honeypot_logs %}
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="20%">Time/Date</th>
+                                <th width="20%">IP Address</th>
+                                <th width="60%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in honeypot_logs %}
+                            <tr class="honeypot-row">
+                                <td>{{ log.timestamp }}</td>
+                                <td>{{ log.ip }}</td>
+                                <td>{{ log.action }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="no-data">No honeypot activity detected.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // Initialize AOS (Animate on Scroll)
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ 
+                once: true,
+                duration: 800
+            });
+
+            // Add click handlers to collapsible sections
+            document.querySelectorAll('.collapsible').forEach(function(collapsible) {
+                collapsible.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const toggleIcon = this.querySelector('.toggle-icon');
+                    
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                        toggleIcon.textContent = '▼';
+                    } else {
+                        content.style.display = 'block';
+                        toggleIcon.textContent = '▲';
+                    }
+                });
+            });
+            
+            // Add click handler for copy button
+            const copyBtn = document.querySelector('.copy-invite-btn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    const target = document.querySelector(this.getAttribute('data-target'));
+                    if (target) {
+                        target.select();
+                        document.execCommand('copy');
+                        
+                        // Show feedback
+                        const originalText = this.textContent;
+                        this.textContent = "Copied!";
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                        }, 2000);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
