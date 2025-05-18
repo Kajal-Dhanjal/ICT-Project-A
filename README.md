@@ -79,7 +79,7 @@ SMTP-enabled email account for system notifications
 
 ```
 bash
-gitgit clone https://github.com/emanuel-amol/ICT-Project-A.git 
+git clone https://github.com/Kajal-Dhanjal/ICT-Project-A.git
 ```
 ```
 bash
