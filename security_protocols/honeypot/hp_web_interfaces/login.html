@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Legacy System Login</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; padding: 40px; }
+        .login-container { background: white; padding: 30px; max-width: 400px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #003366; }
+        input[type=text], input[type=password] { width: 100%; padding: 10px; margin-top: 10px; margin-bottom: 20px; }
+        .note { font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Legacy Access Portal</h2>
+        <form method="post">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="e.g. admin@example.com" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
+            <input type="submit" value="Login" style="padding:10px 20px;">
+        </form>
+        <p class="note">System access is restricted. Failed attempts are recorded.</p>
+    </div>
+</body>
+</html>

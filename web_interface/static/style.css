@@ -1,0 +1,690 @@
+:root {
+  --color-primary: #004e7c;
+  --color-secondary: #007bbd;
+  --color-accent: #f4c542;
+  --color-bg: #f5f5f5;
+  --color-text: #333333;
+  --color-white: #ffffff;
+  --color-section: #ffffff;
+  --color-card-border: #e0e0e0;
+  --color-success: #28a745;
+  --color-danger: #e74c3c;
+  --color-muted: #6c757d;
+}
+
+/* ======= RESET & GLOBAL STYLES ======= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ======= NAVBAR ======= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar .nav-group {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.navbar .user-info {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.navbar .nav-btn {
+  text-decoration: none;
+  background: var(--color-accent);
+  color: var(--color-primary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+}
+
+.navbar .nav-btn:hover {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+/* ======= MAIN CONTENT CONTAINER ======= */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ======= PAGE TITLES ======= */
+.page-title {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+/* ======= SECTION CARDS ======= */
+.section {
+  background: var(--color-section);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  color: var(--color-primary);
+  margin-bottom: 1.25rem;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.section h2 i, 
+.section h2 .emoji {
+  margin-right: 0.5rem;
+  font-style: normal;
+}
+
+.section h3 {
+  color: var(--color-secondary);
+  margin: 1.25rem 0 1rem;
+  font-size: 1.1rem;
+}
+
+/* ======= FORM ELEMENTS ======= */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label,
+.section-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-card-border);
+  border-radius: 0.4rem;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-group input[readonly] {
+  background-color: #f9f9f9;
+}
+
+button, 
+.submit-btn,
+.login-btn,
+.continue-btn,
+.register-btn,
+.mfa-btn {
+  background: var(--color-accent);
+  color: var(--color-primary);
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  font-size: 1rem;
+}
+
+button:hover,
+.submit-btn:hover,
+.login-btn:hover,
+.continue-btn:hover,
+.register-btn:hover,
+.mfa-btn:hover {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+/* Full width buttons */
+.login-btn,
+.register-btn,
+.submit-btn,
+.mfa-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* ======= CARD STYLES ======= */
+.card {
+  background: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.card strong {
+  color: var(--color-primary);
+}
+
+/* ======= LOGIN/AUTH CARDS ======= */
+.login-card,
+.register-card,
+.forgot-card,
+.mfa-card,
+.reset-card,
+.setup-card,
+.invite-card,
+.success-card {
+  background: var(--color-white);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.login-card h2,
+.register-card h2,
+.forgot-card h2,
+.mfa-card h2,
+.reset-card h2,
+.setup-card h2,
+.invite-card h2,
+.success-card h2 {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ======= GRID LAYOUTS ======= */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ======= HOME PAGE HERO ======= */
+.hero {
+  position: relative;
+  background: url("/static/img/elderly_care.jpg") center/cover no-repeat;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 78, 124, 0.7),
+    rgba(244, 197, 66, 0.7)
+  );
+}
+
+.hero h1 {
+  position: relative;
+  color: #fff;
+  font-size: 3rem;
+  text-align: center;
+  animation: fadeInDown 1s ease-out forwards;
+  padding: 0 1rem;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Home page features */
+.intro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+.feature {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+}
+
+.feature h3 {
+  margin-bottom: 0.75rem;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+.feature p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ======= RESIDENT/CARE PLAN DASHBOARDS ======= */
+.resident-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.health-summary {
+  background: var(--color-white);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.health-summary h2 {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.health-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.health-metric {
+  background-color: rgba(0, 78, 124, 0.03);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.health-metric .label {
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.health-metric .value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* ======= MFA SETUP ======= */
+.qr-code {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: var(--color-white);
+  border-radius: 0.5rem;
+  display: inline-block;
+}
+
+.qr-code img {
+  max-width: 200px;
+}
+
+.secret-code {
+  font-family: monospace;
+  background: rgba(0, 78, 124, 0.05);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  word-break: break-all;
+  font-size: 1.1rem;
+}
+
+/* ======= ALERTS AND MESSAGES ======= */
+.error-message {
+  text-align: center;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-danger);
+  background-color: rgba(231, 76, 60, 0.1);
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.message {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.message.success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--color-success);
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: var(--color-success);
+  margin-bottom: 1.5rem;
+}
+
+.error-msg {
+  color: var(--color-danger);
+  margin-top: 0.5rem;
+}
+
+.form-description {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+/* ======= COLLAPSIBLE SECTIONS ======= */
+.collapsible {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  background-color: rgba(0, 78, 124, 0.05);
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+.collapsible:hover {
+  background-color: rgba(0, 78, 124, 0.1);
+}
+
+.collapsible-content {
+  display: none;
+  padding: 1rem 0;
+}
+
+/* ======= TABLES ======= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-card-border);
+}
+
+th {
+  background-color: rgba(0, 78, 124, 0.05);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: rgba(0, 78, 124, 0.02);
+}
+
+/* ======= INVITE LINK ======= */
+.invite-link-display,
+.invite-link {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(0, 78, 124, 0.05);
+  border: 1px solid var(--color-card-border);
+  border-radius: 0.4rem;
+  margin-top: 0.75rem;
+  font-family: monospace;
+  resize: none;
+  word-break: break-all;
+}
+
+.invite-link-display a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.invite-link-display a:hover {
+  text-decoration: underline;
+}
+
+/* ======= ABOUT PAGE STYLES ======= */
+.team {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.member-card {
+  background: var(--color-white);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.member-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.member-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+
+.member-card p {
+  font-size: 0.9rem;
+}
+
+/* ======= RESPONSIVE STYLES ======= */
+@media (max-width: 992px) {
+  .input-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navbar .site-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .navbar .nav-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+  main {
+    padding: 1.5rem 1rem;
+  }
+  .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .input-group {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .health-metrics {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .hero {
+    height: 40vh;
+  }
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+  .intro p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 30vh;
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+  .features {
+    grid-template-columns: 1fr;
+  }
+  .navbar .nav-btn,
+  .footer-login .login-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+  .page-title {
+    font-size: 1.5rem;
+  }
+  .resident-card h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* MFA-specific styles */
+.form-hint {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin-top: 0.25rem;
+}
+
+.mfa-options {
+    margin-top: 2rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-card-border);
+}
+
+.setup-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.setup-link:hover {
+    background-color: #006ba4;
+}
+
+.continue-btn {
+    display: block;
+    width: 100%;
+    background: var(--color-accent);
+    color: var(--color-primary);
+    font-weight: bold;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    font-size: 1rem;
+    margin-top: 2rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.continue-btn:hover {
+    background: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.option-btn {
+    background: var(--color-secondary);
+    color: var(--color-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.2s;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.option-btn:hover {
+    background-color: #006ba4;
+    transform: translateY(-2px);
+}
+
+.hint {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    text-align: center;
+    margin-top: -0.5rem;
+}

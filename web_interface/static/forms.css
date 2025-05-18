@@ -1,0 +1,129 @@
+/**
+ * Form-specific styles for ElderSafe Connect
+ * 
+ * These styles are used across authentication forms (login, register, etc.)
+ */
+
+/* Forgot password link */
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    text-decoration: none;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* MFA section styles */
+.button-row {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.option-btn {
+    background: var(--color-secondary);
+    color: var(--color-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.option-btn:hover {
+    background-color: #006ba4;
+    transform: translateY(-2px);
+}
+
+.option-btn.active {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* MFA sections */
+#mfa-section, #qr-section {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    background-color: rgba(0, 78, 124, 0.05);
+}
+
+/* QR code container */
+.qr-code {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.qr-code img {
+    max-width: 200px;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    background: white;
+}
+
+/* Secret code display */
+.secret-code {
+    font-family: monospace;
+    background: rgba(0, 78, 124, 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    word-break: break-all;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Form submit buttons */
+.mfa-btn, .login-btn, .submit-btn, .register-btn {
+    width: 100%;
+    background: var(--color-accent);
+    color: var(--color-primary);
+    font-weight: bold;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.mfa-btn:hover, .login-btn:hover, .submit-btn:hover, .register-btn:hover {
+    background: var(--color-secondary);
+    color: var(--color-white);
+}
+
+/* Error message display */
+.error-msg {
+    color: #e74c3c;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Success message display */
+.success-msg {
+    color: #28a745;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Form descriptions */
+.form-description {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+    opacity: 0.8;
+    font-size: 0.95rem;
+}

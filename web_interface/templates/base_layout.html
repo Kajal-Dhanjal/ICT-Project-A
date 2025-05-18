@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ElderSafe Connect{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+    <header class="navbar">
+        <div class="site-title">ElderSafe Connect</div>
+        <div class="nav-group">
+            {% if g.role %}
+                <div class="user-info">Logged in as: {{ user.email }} ({{ g.role }})</div>
+                <a href="/logout" class="nav-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('about') }}" class="nav-btn">About</a>
+                <a href="{{ url_for('home') }}" class="nav-btn">Home</a>
+            {% endif %}
+        </div>
+    </header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    // Initialize AOS (Animate on Scroll)
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({ 
+            once: true,
+            duration: 800
+        });
+    });
+</script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+<script src="{{ url_for('static', filename='admin_dashboard.js') }}"></script>
+{% block page_scripts %}{% endblock %}
+</body>
+</html>
