@@ -1,7 +1,5 @@
 # ElderSafe Connect
 
-![Dashboard of ElderSafe Connect](images/dashboard.png)
-
 ## 🔒 Identity and Access Management System for Aged Care
 
 ElderSafe Connect is a comprehensive Identity and Access Management (IAM) system designed
