@@ -98,6 +98,13 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
     Main application: https://localhost:5000
     Honeypot system: http://localhost:3000/login
 
+### Logging in as ADMIN
+agedcare66.adnim@gmail.com
+Password: PA_CL7_T01
+
+**This admin shall never be removed or have its password changed.**
+You will be able to create more admins and other staff in the admin page. 
+
 ## 💼 Usage
 
 1. **Admin Functions** :
