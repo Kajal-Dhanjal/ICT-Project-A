@@ -1,6 +1,6 @@
 # ElderSafe Connect
 
-![image](https://github.com/user-attachments/assets/f358f624-5872-474e-87c1-e00b841fadb9)
+![Dashboard of ElderSafe Connect](images/dashboard.png)
 
 
 ## 🔒 Identity and Access Management System for Aged Care
