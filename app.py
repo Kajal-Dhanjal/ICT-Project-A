@@ -83,6 +83,18 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route("/trouble")
+def trouble():
+    return render_template("trouble.html")
+
+@app.route("/announcements")
+def announcements():
+    return render_template("announcements.html")
+
+@app.route("/faq")
+def faq():
+    return render_template("faq.html")
+
 @app.route("/admin/invite", methods=["GET", "POST"])
 @jwt_required
 @mfa_required
