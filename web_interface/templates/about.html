@@ -1,66 +1,112 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About ElderSafe Connect</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header class="navbar">
-        <div class="site-title">ElderSafe Connect</div>
-        <div class="nav-group">
-            <a href="{{ url_for('home') }}" class="nav-btn">Home</a>
-            <a href="{{ url_for('login') }}" class="nav-btn">Log In</a>
-        </div>
+      <div class="site-title">ElderSafe Connect</div>
+      <div class="nav-group">
+        <a href="{{ url_for('home') }}" class="nav-btn">Home</a>
+        <a href="{{ url_for('login') }}" class="nav-btn">Log In</a>
+      </div>
     </header>
 
-    <main>
-        <h1 class="page-title">About Our Team</h1>
-        <p data-aos="fade-up" data-aos-duration="800">
-            ElderSafe Connect was developed by a dedicated six-member student team
-            combining software development, cybersecurity, and UX expertise. We
-            created this portal to ensure aged-care facilities have a secure,
-            intuitive system for managing and responding to incidents.
+    <main class="team-wrapper">
+      <h1 class="page-title" style="text-align: center">About Our Team</h1>
+      <div class="team-intro" data-aos="fade-up">
+        <p>
+          ElderSafe Connect is proudly developed by a six-member student team
+          from Swinburne University of Technology. Our team represents a blend
+          of diverse cultural and academic backgrounds, each bringing unique
+          strengths in areas such as software development, cybersecurity, user
+          experience (UX) design, and systems thinking. Despite our varied
+          experiences, we came together with a shared vision—to create a secure,
+          accessible, and reliable platform tailored to the needs of aged-care
+          facilities. This project reflects our collective commitment to solving
+          real-world problems through thoughtful design and collaborative
+          innovation.
         </p>
-        
-        <section id="team" class="team" data-aos="fade-up" data-aos-delay="100">
-            <div class="member-card">
-                <img src="/static/img/member1.jpg" alt="Member 1" onerror="this.src='/static/img/placeholder.png'">
-                <h3>Chayan Kapoor</h3>
-                <p>Student ID: 104202680</p>
-            </div>
-            <div class="member-card">
-                <img src="/static/img/member2.jpg" alt="Member 2" onerror="this.src='/static/img/placeholder.png'">
-                <h3>Kajal Dhanjal</h3>
-                <p>Student ID: 104224600</p>
-            </div>
-            <div class="member-card">
-                <img src="/static/img/member3.jpg" alt="Member 3" onerror="this.src='/static/img/placeholder.png'">
-                <h3>Aryan Singla</h3>
-                <p>Student ID: 104329631</p>
-            </div>
-            <div class="member-card">
-                <img src="/static/img/member4.jpg" alt="Member 4" onerror="this.src='/static/img/placeholder.png'">
-                <h3>Sahil Amin</h3>
-                <p>Student ID: 104501837</p>
-            </div>
-            <div class="member-card">
-                <img src="/static/img/member5.jpg" alt="Member 5" onerror="this.src='/static/img/placeholder.png'">
-                <h3>Emanuel Singh</h3>
-                <p>Student ID: 104515032</p>
-            </div>
-            <div class="member-card">
-                <img src="/static/img/member6.jpg" alt="Member 6" onerror="this.src='/static/img/placeholder.png'">
-                <h3>Yehan Sooriarachchi</h3>
-                <p>Student ID: 103449800</p>
-            </div>
-        </section>
+      </div>
+
+      <section class="team-grid" data-aos="fade-up" data-aos-delay="100">
+        <div class="member-card">
+          <div class="initial-badge">C</div>
+          <h3>Chayan Kapoor</h3>
+          <p>Student ID: 104202680</p>
+        </div>
+        <div class="member-card">
+          <div class="initial-badge">K</div>
+          <h3>Kajal Dhanjal</h3>
+          <p>Student ID: 104224600</p>
+        </div>
+        <div class="member-card">
+          <div class="initial-badge">A</div>
+          <h3>Aryan Singla</h3>
+          <p>Student ID: 104329631</p>
+        </div>
+        <div class="member-card">
+          <div class="initial-badge">S</div>
+          <h3>Sahil Amin</h3>
+          <p>Student ID: 104501837</p>
+        </div>
+        <div class="member-card">
+          <div class="initial-badge">E</div>
+          <h3>Emanuel Singh</h3>
+          <p>Student ID: 104515032</p>
+        </div>
+        <div class="member-card">
+          <div class="initial-badge">Y</div>
+          <h3>Yehan Sooriarachchi</h3>
+          <p>Student ID: 103449800</p>
+        </div>
+      </section>
     </main>
-    
+    <footer
+      style="
+        background-color: var(--color-primary);
+        color: white;
+        padding: 2rem;
+        margin-top: 3rem;
+      "
+    >
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 2rem;
+        "
+      >
+        <div>
+          <h3 style="margin-bottom: 0.5rem">Contact</h3>
+          <p>Email: careaged66@gmail.com</p>
+          <p>Phone: (03) 9000 0000</p>
+          <p>Hours: Mon–Fri, 9 AM – 5 PM</p>
+        </div>
+        <div style="text-align: right">
+          <p>&copy; 2025 ElderSafe Connect</p>
+          <a href="#" style="color: white; text-decoration: underline"
+            >Privacy Policy</a
+          >
+        </div>
+      </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
     <script src="{{ url_for('static', filename='main.js') }}"></script>
-</body>
+  </body>
 </html>
