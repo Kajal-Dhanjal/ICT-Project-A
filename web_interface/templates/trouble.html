@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Support - ElderSafe Connect</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- NAVIGATION -->
+    <header class="navbar">
+      <div class="site-title">ElderSafe Connect</div>
+      <div class="nav-group">
+        <a href="{{ url_for('home') }}" class="nav-btn">🏠 Back to Home</a>
+      </div>
+    </header>
+
+    <main class="section" style="max-width: 850px; margin: 2rem auto">
+      <h2 style="color: var(--color-primary); margin-bottom: 2rem">
+        🔐 Trouble Logging In?
+      </h2>
+
+      <section style="margin-bottom: 2.5rem">
+        <h3 style="color: var(--color-secondary)">
+          🔑 Resetting Your Password
+        </h3>
+        <p>
+          If you've forgotten your password, use the
+          <a href="{{ url_for('forgot_password') }}">Password Reset Tool</a>.
+          Enter your registered email, and we'll send you a link to reset your
+          password. This link is valid for 60 minutes. Your new password should
+          be at least 8 characters long and include a combination of uppercase,
+          lowercase, numbers, and special characters.
+        </p>
+      </section>
+
+      <section style="margin-bottom: 2.5rem">
+        <h3 style="color: var(--color-secondary)">📱 MFA Setup Issues</h3>
+        <p>
+          If you're having trouble setting up or completing Multi-Factor
+          Authentication (MFA):
+        </p>
+        <ul style="padding-left: 1.5rem; line-height: 1.6">
+          <li>
+            Ensure your authenticator app (e.g., Microsoft Authenticator, Google
+            Authenticator) is installed.
+          </li>
+          <li>
+            Use the <a href="/mfa/setup?force=true">MFA Setup Page</a> to scan
+            the QR code or manually enter your secret key.
+          </li>
+          <li>
+            If you lost access to your authenticator app, contact IT to reset
+            your MFA setup.
+          </li>
+        </ul>
+      </section>
+
+      <section style="margin-bottom: 3rem">
+        <h3 style="color: var(--color-secondary)">📧 Still Need Help?</h3>
+        <p>If you still can't log in, please reach out to our support team:</p>
+        <ul style="padding-left: 1.5rem">
+          <li>
+            <strong>Email:</strong>
+            <a href="mailto:careaged66@gmail.com">careaged66@gmail.com</a>
+          </li>
+          <li><strong>Phone:</strong> (03) 9000 0000</li>
+          <li><strong>Support Hours:</strong> Mon–Fri, 9:00 AM – 5:00 PM</li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+      style="
+        background: var(--color-primary);
+        color: white;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      "
+    >
+      <div>
+        <strong>Contact</strong><br />
+        Email: careaged66@gmail.com<br />
+        Phone: (03) 9000 0000<br />
+        Hours: Mon–Fri, 9 AM – 5 PM
+      </div>
+      <div style="text-align: right">
+        © 2025 ElderSafe Connect<br />
+        <a href="#" style="color: #fff; text-decoration: underline"
+          >Privacy Policy</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>

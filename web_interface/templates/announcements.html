@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcements - ElderSafe Connect</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- NAVIGATION -->
+    <header class="navbar">
+      <div class="site-title">ElderSafe Connect</div>
+      <div class="nav-group">
+        <a href="{{ url_for('home') }}" class="nav-btn">🏠 Back to Home</a>
+      </div>
+    </header>
+
+    <!-- MAIN SECTION -->
+    <main class="section" style="max-width: 900px; margin: 2rem auto">
+      <h2 style="color: var(--color-primary); margin-bottom: 2rem">
+        📢 Latest Announcements
+      </h2>
+
+      <!-- ANNOUNCEMENT LIST -->
+      <div style="line-height: 1.8">
+        <section style="margin-bottom: 1.8rem">
+          <strong style="color: var(--color-secondary)"
+            >📅 May 17 – [Update]</strong
+          >
+          <p>
+            The Incident Response workflow has been upgraded to include
+            automatic escalation. All admins are advised to review the
+            escalation logic to ensure alignment with internal triage protocols
+            before submitting reports.
+          </p>
+        </section>
+
+        <section style="margin-bottom: 1.8rem">
+          <strong style="color: var(--color-secondary)"
+            >📅 May 15 – [Maintenance]</strong
+          >
+          <p>
+            Planned system maintenance will occur this Friday between 10 PM and
+            12 AM. Users may experience brief downtime on login and dashboard
+            access. Ensure reports are saved beforehand.
+          </p>
+        </section>
+
+        <section style="margin-bottom: 1.8rem">
+          <strong style="color: var(--color-secondary)"
+            >📅 May 13 – [Reminder]</strong
+          >
+          <p>
+            All registered staff must complete Multi-Factor Authentication (MFA)
+            setup by May 20. To initiate or restart setup, visit the
+            <a href="/mfa/setup?force=true">MFA Setup Page</a>. Access may be
+            restricted if not completed by the deadline.
+          </p>
+        </section>
+
+        <section style="margin-bottom: 1.8rem">
+          <strong style="color: var(--color-secondary)"
+            >📅 May 10 – [Security]</strong
+          >
+          <p>
+            Cybersecurity Awareness Week is live! New phishing alert detection
+            has been added to the dashboard. Test it using
+            <strong>Simulated Threat Alerts</strong> under Admin view. Stay
+            sharp and informed.
+          </p>
+        </section>
+
+        <section style="margin-bottom: 1.8rem">
+          <strong style="color: var(--color-secondary)"
+            >📅 May 8 – [Dashboard]</strong
+          >
+          <p>
+            The Admin Dashboard now includes collapsible login, JWT, and
+            honeypot logs. Explore the enhancements and report any anomalies to
+            the IT team.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+      style="
+        background: var(--color-primary);
+        color: white;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      "
+    >
+      <div>
+        <strong>Contact</strong><br />
+        Email:
+        <a href="mailto:careaged66@gmail.com" style="color: white"
+          >careaged66@gmail.com</a
+        ><br />
+        Phone: (03) 9000 0000<br />
+        Hours: Mon–Fri, 9 AM – 5 PM
+      </div>
+      <div style="text-align: right">
+        © 2025 ElderSafe Connect<br />
+        <a href="#" style="color: #fff; text-decoration: underline"
+          >Privacy Policy</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>

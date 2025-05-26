@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FAQ - ElderSafe Connect</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="site-title">ElderSafe Connect</div>
+      <div class="nav-group">
+        <a href="{{ url_for('home') }}" class="nav-btn">🏠 Back to Home</a>
+      </div>
+    </header>
+
+    <!-- MAIN SECTION -->
+    <main class="section" style="max-width: 900px; margin: 2rem auto">
+      <h2 style="color: var(--color-primary); margin-bottom: 2rem">
+        ❓ Frequently Asked Questions
+      </h2>
+      <ul style="line-height: 1.8">
+        <li>
+          <strong>How do I reset my password?</strong> Use the
+          <a href="/forgot-password">Forgot Password</a> tool on the login page
+          to receive a secure reset link.
+        </li>
+
+        <li>
+          <strong>What is MFA and why is it required?</strong> Multi-Factor
+          Authentication adds a second layer of protection by requiring a code
+          from your mobile device.
+        </li>
+
+        <li>
+          <strong>How do I set up MFA?</strong> After login, you’ll be
+          redirected to the <a href="/mfa/setup">MFA setup page</a> to scan a QR
+          code or enter a secret manually.
+        </li>
+
+        <li>
+          <strong>What should I do if I can’t log in?</strong> First try
+          resetting your password. If MFA fails, ensure time sync is enabled.
+          Still stuck? Visit the <a href="/trouble">Trouble Logging In</a> page.
+        </li>
+
+        <li>
+          <strong>How do I report a cybersecurity concern?</strong> Contact your
+          site administrator or email
+          <a href="mailto:careaged66@gmail.com">careaged66@gmail.com</a>.
+        </li>
+
+        <li>
+          <strong>Can I access ElderSafe Connect from home?</strong> Yes, the
+          system is web-based and accessible from secure personal devices with
+          MFA enabled.
+        </li>
+
+        <li>
+          <strong>What roles exist in the system?</strong> The main roles are:
+          <em>Admin</em> (dashboard/logs), <em>Nurse</em> (care plans),
+          <em>Carer</em> (incident reporting), and <em>Resident</em> (health
+          summary).
+        </li>
+
+        <li>
+          <strong>What’s logged in the Admin Dashboard?</strong> JWT tokens,
+          login events, honeypot alerts, and resident assignments are visible
+          for audit and compliance.
+        </li>
+
+        <li>
+          <strong>What is a honeypot alert?</strong> It’s a cybersecurity
+          feature that traps unauthorized access attempts and notifies admins
+          for review.
+        </li>
+
+        <li>
+          <strong>How do I submit a care plan?</strong> Nurses can upload
+          assessments, vitals, and medications directly from the
+          <em>Care Plan Dashboard</em>.
+        </li>
+
+        <li>
+          <strong
+            >What should I do before submitting an incident report?</strong
+          >
+          Verify details, attach relevant documents, and follow ISO incident
+          workflow shown on the dashboard.
+        </li>
+
+        <li>
+          <strong>How is sensitive resident data protected?</strong> Access
+          control, MFA, and role-based restrictions ensure only authorized staff
+          can view or edit data.
+        </li>
+
+        <li>
+          <strong>Can I attach files to reports?</strong> Yes, PDF/PNG uploads
+          are supported in care plans and incident forms for admins and nurses.
+        </li>
+
+        <li>
+          <strong>What browsers are supported?</strong> Latest versions of
+          Chrome, Edge, Firefox, and Safari. Ensure JavaScript is enabled for
+          full functionality.
+        </li>
+      </ul>
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+      style="
+        background: var(--color-primary);
+        color: white;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      "
+    >
+      <div>
+        <strong>Contact</strong><br />
+        Email:
+        <a href="mailto:careaged66@gmail.com" style="color: white"
+          >careaged66@gmail.com</a
+        ><br />
+        Phone: (03) 9000 0000<br />
+        Hours: Mon–Fri, 9 AM – 5 PM
+      </div>
+      <div style="text-align: right">
+        © 2025 ElderSafe Connect<br />
+        <a href="#" style="color: #fff; text-decoration: underline"
+          >Privacy Policy</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
