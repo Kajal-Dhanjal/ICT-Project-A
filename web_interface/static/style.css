@@ -688,3 +688,69 @@ tr:hover {
     text-align: center;
     margin-top: -0.5rem;
 }
+
+/* ======= ABOUT PAGE STYLES ======= */
+/* Force proper grid behavior for About page */
+.team-wrapper {
+  display: block; /* Override flex layout from <body> */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.team-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 3rem;
+  justify-content: center;
+}
+
+.team-intro {
+  text-align: center;
+  font-size: 1.15rem;
+  color: #444;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.member-card {
+  background: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.initial-badge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: bold;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.member-card h3 {
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.member-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
